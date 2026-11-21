@@ -64,7 +64,6 @@ always_comb begin
     mem_wb_next.next_pc = ex_mem.next_pc;
     mem_wb_next.instruction = ex_mem.instruction;
     mem_wb_next.valid = ex_mem.valid;
-    mem_wb_next.order = ex_mem.order;
     mem_wb_next.rs1_v = ex_mem.rs1_v;
     mem_wb_next.rs2_v = ex_mem.rs2_v;
     mem_wb_next.rs1_s = ex_mem.rs1_s;

@@ -96,7 +96,6 @@ always_comb begin
     id_ex_next.pc = pc;
     id_ex_next.next_pc = if_id.next_pc;
     id_ex_next.instruction = inst;
-    id_ex_next.order = if_id.order;
     id_ex_next.rs1_s = rs1_s;
     id_ex_next.rs2_s = rs2_s;
     id_ex_next.rd_s = rd_s;

@@ -1,7 +1,6 @@
 module fetch
 import rv32i_types::*;
 (
-    input logic [63:0] order_cpu,
     output  logic   [31:0]  imem_addr,
     output  logic   [3:0]   imem_rmask,
     input   logic   [31:0]  imem_rdata,
@@ -22,7 +21,6 @@ always_comb begin
     if_id_next.pc = pc;
     if_id_next.next_pc = next_pc;
     if_id_next.instruction = imem_rdata;
-    if_id_next.order = order_cpu;
 end
 
 

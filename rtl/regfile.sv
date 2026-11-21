@@ -39,20 +39,4 @@ module regfile
             end
         end 
     end
-//     Replace the always_ff for reads with:
-// assign rs1_v = (rs1_s != 5'd0) ? data[rs1_s] : '0;
-// assign rs2_v = (rs2_s != 5'd0) ? data[rs2_s] : '0;
-
-//     always_comb begin
-// if (rs1_s == rd_s) begin
-//             rs1_v = rd_v;
-//         end else begin
-//             rs1_v = (rs1_s != 5'd0) ? data[rs1_s] : '0;
-//         end
-//         if (rs2_s == rd_s) begin
-//             rs2_v = rd_v;
-//         end else begin
-//             rs2_v = (rs2_s != 5'd0) ? data[rs2_s] : '0;
-//         end 
-//     end
 endmodule : regfile

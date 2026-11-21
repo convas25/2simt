@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package rv32i_types;
     typedef enum logic [6:0] {
         op_b_lui       = 7'b0110111, // load upper immediate (U type)
@@ -68,66 +67,17 @@ package rv32i_types;
         alu_op_and     = 3'b111
     } alu_ops;
 
-    typedef union packed {
-        logic [31:0] word;
-
-        struct packed {
-            logic [11:0] i_imm;
-            logic [4:0]  rs1;
-            logic [2:0]  funct3;
-            logic [4:0]  rd;
-            rv32i_opcode opcode;
-        } i_type;
-
-        struct packed {
-            logic [6:0]  funct7;
-            logic [4:0]  rs2;
-            logic [4:0]  rs1;
-            logic [2:0]  funct3;
-            logic [4:0]  rd;
-            rv32i_opcode opcode;
-        } r_type;
-
-        struct packed {
-            logic [11:5] imm_s_top;
-            logic [4:0]  rs2;
-            logic [4:0]  rs1;
-            logic [2:0]  funct3;
-            logic [4:0]  imm_s_bot;
-            rv32i_opcode opcode;
-        } s_type;
-
-
-        struct packed {
-            logic [12:12] imm12;
-            logic [10:5] imm105;
-            logic [4:0] rs2;
-            logic [4:0] rs1;
-            logic[2:0] funct3;
-            logic [4:1] immbot41;
-            logic [11:11] imm11;
-            rv32i_opcode opcode;
-        } b_type;
-
-        struct packed {
-            logic [31:12] imm;
-            logic [4:0]   rd;
-            rv32i_opcode  opcode;
-        } j_type;
-    } instr_t;
 
     typedef struct packed {
             logic [31:0] instruction;
             logic [31:0] pc, next_pc;
             logic valid;
-            logic [63:0] order;
         } if_id_t;
 
         typedef struct packed {
             logic [31:0] instruction;
             logic [31:0] pc, next_pc;
             logic valid;
-            logic [63:0] order;
             //decode signals
             logic [4:0] rs1_s, rs2_s, rd_s;
             logic [31:0] imm_val;
@@ -141,7 +91,6 @@ package rv32i_types;
             logic [31:0] instruction;
             logic [31:0] pc, next_pc;
             logic valid;
-            logic [63:0] order;
             //decode signals
             logic [4:0] rs1_s, rs2_s, rd_s;
             logic [31:0] rs1_v, rs2_v;
@@ -158,7 +107,6 @@ package rv32i_types;
             logic [31:0] instruction;
             logic [31:0] pc, next_pc;
             logic valid;
-            logic [63:0] order;
             //decode signals
             logic [4:0] rs1_s, rs2_s, rd_s;
             logic [31:0] rs1_v, rs2_v;
@@ -171,33 +119,5 @@ package rv32i_types;
             //memory signals
         } mem_wb_t;
 
-    // add your types in this file if needed.
 
 endpackage : rv32i_types
-=======
-/////////////////////////////////////////////////////////////
-// Maybe merge what is in mp_verif/rtl/cpu/types.sv over here? //
-/////////////////////////////////////////////////////////////
-
-package rv32i_types;
-
-typedef enum logic {
-    rs1_out = 1'b0,
-    pc_out  = 1'b1
-} alu_m1_sel_t;
-
-// more mux def here
-
-typedef struct packed {
-    logic   [31:0]      inst;
-    logic   [31:0]      pc;
-    logic   [63:0]      order;
-
-    alu_m1_sel_t        alu_m1_sel;
-
-    // what else?
-
-} id_ex_stage_reg_t;
-
-endpackage
->>>>>>> release/main

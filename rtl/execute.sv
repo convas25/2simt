@@ -267,7 +267,6 @@ always_comb begin
     ex_mem_next.pc = pc;
     ex_mem_next.next_pc = ((opcode == op_b_br && cmp_en) || opcode == op_b_jal || opcode == op_b_jalr) ? eff_addr : id_ex.next_pc;
     ex_mem_next.instruction = inst;
-    ex_mem_next.order = id_ex.order;
     ex_mem_next.rs1_v = rs1_vnew;
     ex_mem_next.rs2_v = rs2_vnew;
     ex_mem_next.rs1_s = id_ex.rs1_s;

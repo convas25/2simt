@@ -16,7 +16,6 @@ import rv32i_types::*;
     output  logic   [31:0]  dmem_wdata,
     input   logic           dmem_resp
 );
-<<<<<<< HEAD
 logic global_stall, imem_stall, dmem_stall, dresp_check;
 logic [31:0] pc, pc_next;
 logic branch_taken;
@@ -40,7 +39,6 @@ assign branch_taken = id_ex.valid & (
     id_ex.opcode == op_b_jalr);
 
 assign pc_next = branch_taken ? ex_mem_next.eff_addr : (pc + 32'd4);
-logic [63:0] order_cpu;
 always_ff @(posedge clk) begin
         if (dmem_resp) begin
         dresp_check <= '1;
@@ -53,13 +51,11 @@ always_ff @(posedge clk) begin
         ex_mem <= '0;
         mem_wb <= '0;
         pc <= 32'haaaaa000;
-        order_cpu <= 64'd0;
         dresp_check <= '0;
     end  if (~global_stall) begin
             if (branch_taken) begin
                 if_id <= '0;
                 id_ex <= '0;
-                order_cpu <= order_cpu - 64'd1;
                 ex_mem <= ex_mem_next;
                 mem_wb <= mem_wb_next;
                 pc <= pc_next;
@@ -72,7 +68,6 @@ always_ff @(posedge clk) begin
             end else begin
                 if_id <= if_id_next;
                 id_ex <= id_ex_next;
-                order_cpu <= order_cpu + 64'd1;
                 ex_mem <= ex_mem_next;
                 mem_wb <= mem_wb_next;
                 pc <= pc_next;
@@ -107,7 +102,6 @@ fetch s_fetch (
   .imem_stall (imem_stall),
     .load_hazard(load_hazard),
     .global_stall(global_stall),
-  .order_cpu  (order_cpu),
   .pc         (pc),
   .next_pc    (pc_next),
   .if_id_next (if_id_next)
@@ -145,43 +139,5 @@ writeback s_writeback (
         .mem_wb (mem_wb),
         .wb_data (wb_data)
 );
-
-// monitor
-    logic           monitor_valid;
-    logic   [63:0]  monitor_order;
-    logic   [31:0]  monitor_inst;
-    logic   [4:0]   monitor_rs1_addr;
-    logic   [4:0]   monitor_rs2_addr;
-    logic   [31:0]  monitor_rs1_rdata;
-    logic   [31:0]  monitor_rs2_rdata;
-    logic           monitor_regf_we;
-    logic   [4:0]   monitor_rd_addr;
-    logic   [31:0]  monitor_rd_wdata;
-    logic   [31:0]  monitor_pc_rdata;
-    logic   [31:0]  monitor_pc_wdata;
-    logic   [31:0]  monitor_mem_addr;
-    logic   [3:0]   monitor_mem_rmask;
-    logic   [3:0]   monitor_mem_wmask;
-    logic   [31:0]  monitor_mem_rdata;
-    logic   [31:0]  monitor_mem_wdata;
-    assign monitor_valid = mem_wb.valid & ~global_stall;
-    assign monitor_order = mem_wb.order;
-    assign monitor_inst = mem_wb.instruction;
-    assign monitor_rs1_addr = mem_wb.rs1_s;
-    assign monitor_rs2_addr = mem_wb.rs2_s;
-    assign monitor_rs1_rdata = mem_wb.rs1_v;
-    assign monitor_rs2_rdata = mem_wb.rs2_v;
-    assign monitor_regf_we = mem_wb.regf_we;
-    assign monitor_rd_addr = mem_wb.rd_s;
-    assign monitor_rd_wdata = mem_wb.wb_data;
-    assign monitor_pc_rdata = mem_wb.pc;
-    assign monitor_pc_wdata = mem_wb.next_pc;
-    assign monitor_mem_addr  = mem_wb.mem_addr;
-    assign monitor_mem_rmask = mem_wb.dmem_rmask;
-    assign monitor_mem_wmask = mem_wb.dmem_wmask;
-    assign monitor_mem_rdata = mem_wb.dmem_rdata;
-    assign monitor_mem_wdata = mem_wb.store_data;
-=======
->>>>>>> release/main
 
 endmodule : cpu
